@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:example/movies_bloc.dart';
+import 'package:example/pokemons_bloc.dart';
 
-class Movies extends StatelessWidget {
+class Pokemons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final bloc = Provider.of<MoviesBloc>(context);
+    final bloc = Provider.of<PokemonsBloc>(context);
     return Scaffold(
-      appBar: AppBar(title: Text('Movies'), backgroundColor: Colors.deepPurple),
+      appBar:
+          AppBar(title: Text('Pokemons'), backgroundColor: Colors.deepPurple),
       body: FutureBuilder(
-          future: bloc.movies(),
-          builder:
-              (BuildContext context, AsyncSnapshot<Iterable<Movie>> snapshot) {
+          future: bloc.fetchPokemons(),
+          builder: (BuildContext context,
+              AsyncSnapshot<Iterable<Pokemon>> snapshot) {
             if (!snapshot.hasData) {
               return CircularProgressIndicator();
             }
@@ -23,7 +24,7 @@ class Movies extends StatelessWidget {
               ));
             }
             if (snapshot.data.isEmpty) {
-              return Container(child: Text('Sorry!, no movies for you :/'));
+              return Container(child: Text('Sorry!, no pokemons for you :/'));
             }
             return ListView.builder(
                 itemCount: snapshot.data.length,
