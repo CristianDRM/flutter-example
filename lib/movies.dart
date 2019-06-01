@@ -1,6 +1,6 @@
-import 'package:example/movies_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:example/movies_bloc.dart';
 
 class Movies extends StatelessWidget {
   @override
@@ -14,6 +14,13 @@ class Movies extends StatelessWidget {
               (BuildContext context, AsyncSnapshot<Iterable<Movie>> snapshot) {
             if (!snapshot.hasData) {
               return CircularProgressIndicator();
+            }
+            if (snapshot.hasError) {
+              return Container(
+                  child: Text(
+                'Sorry, there was an error :/\n${snapshot.error}',
+                style: TextStyle(color: Colors.red),
+              ));
             }
             if (snapshot.data.isEmpty) {
               return Container(child: Text('Sorry!, no movies for you :/'));
