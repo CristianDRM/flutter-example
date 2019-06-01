@@ -1,3 +1,4 @@
+import 'package:example/single_pokemon.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:example/pokemons_bloc.dart';
@@ -29,8 +30,11 @@ class Pokemons extends StatelessWidget {
             return ListView.builder(
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext context, int index) {
-                  final movie = snapshot.data.elementAt(index);
-                  return ListTile(title: Text(movie.name));
+                  final pokemon = snapshot.data.elementAt(index);
+                  return InkWell(
+                      child: ListTile(title: Text(pokemon.name)),
+                      onTap: () => Navigator.of(context)
+                          .pushNamed('/pokemon', arguments: pokemon.url));
                 });
           }),
     );
